@@ -16,11 +16,11 @@ pip install pandas numpy matplotlib seaborn wordcloud openpyxl scipy google-gene
 ## 🛠 Script Breakdown & Generated Charts
 
 ### 1. General Demographics & SDLC Overview
-File:analyze_survey2latest.py
+File:createAllCharts.py
 
 This script provides the foundational analysis of who responded and how they use LLMs generally.
 
-- How to run: python analyze_survey2latest.py
+- How to run: python createAllCharts.py
 - Charts Generated:
 
     - chart_A_experience.png: Years of experience distribution.
