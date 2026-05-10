@@ -49,10 +49,10 @@ CONTINENT_MAP = {
     'Canada': 'North America', 'United States of America': 'North America', 'Mexico': 'North America',
     'Brazil': 'South America', 'Argentina': 'South America',
     'Germany': 'Europe', 'Hungary': 'Europe', 'Poland': 'Europe', 'Spain': 'Europe', 'Slovakia': 'Europe',
-    'Netherlands': 'Europe', 'Austria': 'Europe', 'Romania': 'Europe', 'Russia': 'Europe',
+    'Netherlands': 'Europe', 'Austria': 'Europe', 'Romania': 'Europe', 'Russia': 'Asia',
     'Czechia': 'Europe', 'Greece': 'Europe',
     'Ireland': 'Europe', 'Italy': 'Europe', 'Portugal': 'Europe', 'Montenegro': 'Europe', 'France': 'Europe',
-    'United Kingdom': 'United Kingdom', 'United Kingdom': 'United Kingdom',
+    'United Kingdom': 'Europe',
     'Australia': 'Australia'
 }
 def get_text_color(hex_color):
@@ -155,37 +155,79 @@ def normalize_domain(df):
     def map_domain(val):
         if pd.isna(val): return "Non"
         v = str(val).lower().strip()
-        # if any(x in v for x in
-        #        ['web', 'front', 'back', 'full stack', 'react', 'angular', 'node', 'web development']): return "Web Development"
-        # if any(x in v for x in ['ai', 'data', 'learning', 'intelligence', 'nlp', 'vision']): return "AI & Data Science"
-        # if any(x in v for x in ['mobile', 'android', 'ios', 'app', 'flutter']): return "Mobile Development"
-        # if any(x in v for x in ['embedded', 'system', 'c++', 'firmware', 'iot']): return "Embedded & Systems"
-        # if any(x in v for x in ['game', 'unity', 'unreal', 'graphics']): return "Game Development"
-        # if any(x in v for x in ['cloud', 'devops', 'aws', 'azure', 'docker', 'kubernetes']): return "Cloud & DevOps"
-        # if any(x in v for x in
-        #        ['desktop', 'enterprise', 'erp', 'crm', 'business', 'windows', 'macos']): return "Enterprise & Desktop"
-        # if any(x in v for x in ['security', 'cyber', 'pentest']): return "Cybersecurity"
-        # if any(x in v for x in ['student', 'research', 'academia', 'teaching']): return "Education & Research"
-        # if any(x in v for x in
-        #        ['software', 'engineering', 'developer', 'it', 'tech']): return "IT"
+        if any(x in v for x in ['data science', 'data engineer', 'data analyst', 'ai', 'genai', 'machine learning',
+                                'nlp', 'vision', 'intelligence', 'analytics', 'hpc', 'gpgpu', 'data engineering']):
+            return "ai & data science"
+
+        # 2. Database Development (New Category)
+        if any(x in v for x in ['database', 'sql', 'storage', 'data management']):
+            return "database development"
+
+        # 3. Backend Development
+        if any(x in v for x in ['backend', 'back end', 'mvc', 'api', 'serverless', 'java services', 'python', 'js']):
+            # Distinguish general backend from full stack later
+            if 'front' not in v:
+                return "backend development"
+
+        # 4. Web Development (General & Frontend)
+        if any(x in v for x in ['web', 'frontend', 'front end', 'web app', 'web dev', 'web science', 'webhosting']):
+            if 'mobile' in v: return "full stack"  # Hybrid web/mobile
+            return "web development"
+
+        # 5. Full Stack
+        if any(x in v for x in ['full stack', 'fullstack', 'asp.net']):
+            return "full stack"
+
+        # 6. Mobile & Desktop Development
+        if any(x in v for x in ['mobile', 'android', 'ios', 'flutter', 'desktop', 'windows software']):
+            return "mobile & desktop development"
+
+        # 7. DevOps & Infrastructure
+        if any(x in v for x in ['devops', 'cloud', 'automation', 'ci/cd', 'platform engineering', 'network', 'sysadmin',
+                                'system administration']):
+            return "devops & automation"
+
+        # 8. Embedded, Systems & Robotics
         if any(x in v for x in
-               ['web', 'frontend', 'front end', 'backend', 'back end', 'full stack', 'fullstack', 'asp.net', 'mvc',
-                'api', 'web app', 'web dev', 'web science']): return "web development"
-        if any(x in v for x in ['mobile', 'android', 'ios', 'flutter', 'mobile app', 'desktop app']): return "mobile development"
-        if any(x in v for x in ['data science', 'data engineer', 'data engineering', 'data analyst', 'ai', 'genai', 'machine learning',
-                'nlp', 'vision', 'intelligence']): return "ai & data science"
-        if any(x in v for x in ['devops', 'cloud', 'automation', 'ci/cd']): return "devops & automation"
-        if any(x in v for x in ['logo & branding']): return "designing"
-        if any(x in v for x in ['erp','sap','crm']): return "ERP & CRM"
-        if any(x in v for x in ['embedded', 'robotics', 'navigation', 'systems', 'iot']): return "embedded & robotics"
-        if any(x in v for x in ['finance', 'fintech', 'banking']): return "finance & fintech"
-        if any(x in v for x in ['healthcare', 'health care', 'healthcare it']): return "healthcare"
-        if any(x in v for x in ['manufacturing']): return "manufacturing"
-        if any(x in v for x in ['e-commerce', 'e commerce', 'b2b']): return "e-commerce"
-        if any(x in v for x in ['education']): return "education"
-        if any(x in v for x in ['research', 'scientific', 'physics', 'chemistry', 'quantum']): return "scientific research & computing"
-        if any(x in v for x in ['product development']): return "product development"
-        if any(x in v for x in ['it','Architecting, implementing, and managing calable systems']): return "IT Administration"
+               ['embedded', 'robotics', 'navigation', 'systems', 'iot', 'automotive', 'telecommunications']):
+            return "embedded & robotics"
+
+        # 9. Media & Design (Updated name)
+        if any(x in v for x in ['logo & branding', 'marketing', 'designing', 'game development']):
+            return "media designing"
+
+        # 10. Industry Specific: Finance
+        if any(x in v for x in ['finance', 'fintech', 'banking', 'payments', 'fiance', 'insurance']):
+            return "finance & fintech"
+
+        # 11. Industry Specific: Healthcare
+        if any(x in v for x in ['healthcare', 'health care', 'medical']):
+            return "healthcare"
+
+        # 12. Industry Specific: Manufacturing & ERP
+        if any(x in v for x in ['manufacturing', 'mes', 'industrial', 'agriculture', 'supply chain']):
+            return "manufacturing & supply chain"
+
+        if any(x in v for x in ['erp', 'sap', 'crm', 'payroll', 'hr', 'b2b']):
+            return "ERP & CRM"
+
+        # 13. Others
+        if any(x in v for x in ['e-commerce', 'e commerce', 'retail']):
+            return "e-commerce"
+        if any(x in v for x in ['education']):
+            return "education"
+        if any(x in v for x in ['research', 'scientific', 'physics', 'chemistry', 'quantum']):
+            return "scientific research & computing"
+        if any(x in v for x in ['product development']):
+            return "product development"
+        if any(x in v for x in ['government', 'legal']):
+            return "government & legal"
+
+        # Catch-all for "Software Development", "IT", or "Architecting"
+        if any(x in v for x in ['it', 'architecting']):
+            return "IT"
+        if any(x in v for x in ['software development', 'application development']):
+            return "Software Development"
 
     df['Normalized_Domain'] = df[col_name].apply(map_domain)
     return df, col_name
@@ -371,6 +413,59 @@ def plot_diverging_likert(df_subset, title, filename, scale, colors, show_percen
 
 
 def plot_simple_bar(data_series, title, filename, orientation='v', color=COLORS_BINARY, xlabel="", ylabel=""):
+    # 1. First, apply AI shortening
+    new_index = [shorten_label_ai(i) for i in data_series.index]
+
+    # 2. IMPORTANT: Apply wrap_labels to the shortened text to handle long phrases
+    # For horizontal charts (h), we want narrower wrapping (width=20)
+    # For vertical charts (v), we can go a bit wider (width=25)
+    wrap_width = 20 if orientation == 'h' else 25
+    wrapped_index = wrap_labels(new_index, width=wrap_width)
+
+    data_series.index = wrapped_index
+
+    # Dynamic size calculation
+    if orientation == 'v':
+        fig_size = (12, 8)
+    else:
+        # Increase height per bar for horizontal charts to accommodate multiple lines
+        fig_size = (14, len(data_series) * 1.2 + 2)
+
+    plt.figure(figsize=fig_size)
+
+    if orientation == 'v':
+        ax = data_series.plot(kind='bar', color=color, width=0.6)
+        ax.set_xticklabels(data_series.index, rotation=0, fontsize=16)
+        ax.tick_params(axis='y', labelsize=18)
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel)
+        for p in ax.patches:
+            ax.annotate(f'{int(p.get_height())}', (p.get_x() + p.get_width() / 2., p.get_height()),
+                        ha='center', va='bottom', xytext=(0, 5), textcoords='offset points', fontweight='bold',
+                        fontsize=20)
+    else:
+        data_series = data_series.sort_values(ascending=True)
+        ax = data_series.plot(kind='barh', color=color, width=0.7)  # Slightly thicker bars
+        ax.tick_params(axis='x', labelsize=18)
+
+        # Set alignment to 'right' so wrapped lines stack cleanly against the axis
+        ax.set_yticklabels(data_series.index, fontsize=16, ha='right', va='center')
+        ax.set_xlabel(xlabel, fontsize=16)
+
+        for p in ax.patches:
+            ax.annotate(f'{int(p.get_width())}', (p.get_width(), p.get_y() + p.get_height() / 2.),
+                        ha='left', va='center', xytext=(10, 0), textcoords='offset points', fontweight='bold',
+                        fontsize=20)
+
+    # Use subplots_adjust to ensure the left margin is wide enough for the wrapped labels
+    if orientation == 'h':
+        plt.subplots_adjust(left=0.35)
+
+    plt.tight_layout()
+    plt.savefig(filename, dpi=300)
+    plt.close()
+
+def plot_simple_bar_sdlc(data_series, title, filename, orientation='v', color=COLORS_BINARY, xlabel="", ylabel=""):
     # Shorten indices if they are text
     new_index = [shorten_label_ai(i) for i in data_series.index]
     data_series.index = new_index
@@ -512,7 +607,7 @@ def main():
         order = ['Requirements gathering and analysis', 'Software architecture and design', 'Implementation (Coding)',
                  'Testing']
         s_phase = s_phase.reindex(order).dropna()
-        plot_simple_bar(s_phase,
+        plot_simple_bar_sdlc(s_phase,
                         "Usage of LLMs in SDLC Phases",
                         "chart_D_phases.png", orientation='v',
                         # xlabel="SDLC Phase", ylabel="Count"
