@@ -51,7 +51,7 @@ File: analyze_survey_latest.py
 
 This script creates specialized charts that compare Frequency of Use (Usage) against Perceived Value (Benefit) for the same tasks.
 - How to run:
-  ```bash
+```bash
 python analyze_survey_latest.py
 ```
 
@@ -115,7 +115,6 @@ python significanceTestAndCombinedCharts.py
 ---
 
 - Generates:
-
     - Significance test analysis_Outpu.xlsx: Excel workbook containing the Fisher's Exact Test contingency tables and P-values.
     - chart_E_req_combined.png: Annotated usage/benefit chart for Requirement Gathering.
     - chart_F_design_combined.png: Annotated usage/benefit chart for Design tasks.
