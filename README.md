@@ -50,6 +50,7 @@ python createAllCharts.py
 File: analyze_survey_latest.py
 
 This script creates specialized charts that compare Frequency of Use (Usage) against Perceived Value (Benefit) for the same tasks.
+
 - How to run:
 ```bash
 python analyze_survey_latest.py
@@ -115,21 +116,30 @@ python significanceTestAndCombinedCharts.py
 ---
 
 - Generates:
+  
     - Significance test analysis_Outpu.xlsx: Excel workbook containing the Fisher's Exact Test contingency tables and P-values.
+      
     - chart_E_req_combined.png: Annotated usage/benefit chart for Requirement Gathering.
+      
     - chart_F_design_combined.png: Annotated usage/benefit chart for Design tasks.
+      
     - chart_F_dev_combined.png: Annotated usage/benefit chart for Development tasks.
+      
     - chart_F_test_combined.png: Annotated usage/benefit chart for Testing tasks.
+      
     - chart_F_access_combined.png: Annotated usage/benefit chart for LLM Access Methods.
  
 
  ### 4. Note on Usage
+ 
     - Make sure to keep the charts and the data file in the same folder as your scripts.
 
 ## ⚙️ Customization
+
 - Manual Label Mapping
 
     - If survey questions change, you can update the MANUAL_MAP dictionary in analyze_survey2_latest.py to ensure the chart labels remain concise and professional.
+      
 - Visual Style
 
     - You can modify colors by changing the hex codes in the COLORS_LIKERT_5 or COLORS_BENEFIT_5 variables found at the top of each script.
