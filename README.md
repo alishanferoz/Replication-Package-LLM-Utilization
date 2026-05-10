@@ -20,7 +20,13 @@ File:createAllCharts.py
 
 This script provides the foundational analysis of who responded and how they use LLMs generally.
 
-- How to run: python createAllCharts.py
+- How to run:
+```bash
+python createAllCharts.py
+```
+
+---
+
 - Charts Generated:
 
     - chart_A_experience.png: Years of experience distribution.
@@ -44,7 +50,12 @@ This script provides the foundational analysis of who responded and how they use
 File: analyze_survey_latest.py
 
 This script creates specialized charts that compare Frequency of Use (Usage) against Perceived Value (Benefit) for the same tasks.
-- How to run: python analyze_survey_latest.py
+- How to run:
+  ```bash
+python analyze_survey_latest.py
+```
+
+---
 
 - Charts Generated:
 
@@ -61,7 +72,12 @@ File: analyze_survey2_latest.py
 
 This script uses high-resolution settings and manual label mapping to create polished charts for qualitative "Limitations" and "Access Methods."
 
-- How to run: python analyze_survey2_latest.py
+- How to run:
+```bash
+python analyze_survey2_latest.py
+```
+
+---
 - Charts Generated:
 
     - chart_F_limits.png: Frequency of limitations (e.g., Syntax errors, Privacy concerns, Hallucinations).
@@ -74,11 +90,42 @@ File: fischer_exact_test.py
 
 Instead of images, this script performs statistical validation of the survey results to find significant patterns.
 
-- How to run: python fischer_exact_test.py
+- How to run:
+```bash
+python fischer_exact_test.py
 
-- Output:
+```
+
+---
+- Generates:
 
     - Significance test analysis_Output.xlsx: A multi-sheet Excel file containing Contingency Tables, Odds Ratios, P-values, and color-coded Significance Matrices.
+
+### 4. Advanced Combined Charts with Significance Markers
+File: significanceTestAndCombinedCharts.py
+
+This script merges the capabilities of the combined usage/benefit charting and the Fisher's Exact statistical testing. It evaluates the statistical significance of each response and dynamically overlays (SH) (Significantly High: Observed > Expected) or (SL) (Significantly Low: Observed < Expected) markers in red directly onto the combined stacked bar charts.
+
+- How to run:
+```bash
+python significanceTestAndCombinedCharts.py
+
+```
+
+---
+
+- Generates:
+
+    - Significance test analysis_Outpu.xlsx: Excel workbook containing the Fisher's Exact Test contingency tables and P-values.
+    - chart_E_req_combined.png: Annotated usage/benefit chart for Requirement Gathering.
+    - chart_F_design_combined.png: Annotated usage/benefit chart for Design tasks.
+    - chart_F_dev_combined.png: Annotated usage/benefit chart for Development tasks.
+    - chart_F_test_combined.png: Annotated usage/benefit chart for Testing tasks.
+    - chart_F_access_combined.png: Annotated usage/benefit chart for LLM Access Methods.
+ 
+
+ ### 4. Note on Usage
+    - Make sure to keep the charts and the data file in the same folder as your scripts.
 
 ## ⚙️ Customization
 - Manual Label Mapping
