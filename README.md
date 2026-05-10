@@ -132,7 +132,7 @@ python significanceTestAndCombinedCharts.py
 
  ### 4. Note on Usage
  
-    - Make sure to keep the charts and the data file in the same folder as your scripts.
+- Make sure to keep the charts and the data file in the same folder as your scripts.
 
 ## ⚙️ Customization
 
